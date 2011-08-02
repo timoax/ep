@@ -122,7 +122,9 @@ module Ym4r
       end
 
       # http://stackoverflow.com/questions/3326410/ym4r-cant-convert-to-string-for-rails3
-      def to_str @variable + ";" end
+      def to_str 
+        @variable + ";" 
+      end
 
       UNDEFINED = Variable.new("undefined")
     end
