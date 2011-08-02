@@ -9,13 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802013745) do
+ActiveRecord::Schema.define(:version => 20110802033325) do
 
   create_table "pings", :force => true do |t|
-    t.integer  "lat",        :limit => 10, :precision => 10, :scale => 0
-    t.integer  "long",       :limit => 10, :precision => 10, :scale => 0
+    t.decimal  "lat",        :precision => 15, :scale => 10
+    t.decimal  "long",       :precision => 15, :scale => 10
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "device"
+    t.string   "tstamp"
   end
 
 end

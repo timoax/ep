@@ -1,83 +1,28 @@
 class PingsController < ApplicationController
-  # GET /pings
-  # GET /pings.xml
-  def index
-    @pings = Ping.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @pings }
-    end
-  end
+  layout "frontend"
 
-  # GET /pings/1
-  # GET /pings/1.xml
-  def show
-    @ping = Ping.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @ping }
-    end
-  end
-
-  # GET /pings/new
-  # GET /pings/new.xml
   def new
-    @ping = Ping.new
+    # SanFran => http://maps.googleapis.com/maps/api/geocode/json?address=San+Francisco,+CA&sensor=true
+    #lat =37.7749295
+    #long = -122.4194155
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @ping }
-    end
-  end
+    # Chicago => http://maps.googleapis.com/maps/api/geocode/json?address=Chicago,+IL&sensor=true
+    #lat = 41.8781136
+    #long = -87.6297982
+    ping = Ping.new
+    ping.lat = params[:lat]
+    ping.long = params[:long]
+    ping.device = params[:device]
+    ping.tstamp = params[:tstamp]
+    ping.save!
 
-  # GET /pings/1/edit
-  def edit
-    @ping = Ping.find(params[:id])
-  end
+    coordinates = [params[:lat],params[:long]]
 
-  # POST /pings
-  # POST /pings.xml
-  def create
-    @ping = Ping.new(params[:ping])
-
-    respond_to do |format|
-      if @ping.save
-        format.html { redirect_to(@ping, :notice => 'Ping was successfully created.') }
-        format.xml  { render :xml => @ping, :status => :created, :location => @ping }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @ping.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /pings/1
-  # PUT /pings/1.xml
-  def update
-    @ping = Ping.find(params[:id])
-
-    respond_to do |format|
-      if @ping.update_attributes(params[:ping])
-        format.html { redirect_to(@ping, :notice => 'Ping was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @ping.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /pings/1
-  # DELETE /pings/1.xml
-  def destroy
-    @ping = Ping.find(params[:id])
-    @ping.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(pings_url) }
-      format.xml  { head :ok }
-    end
+    @map = GMap.new("map")
+    @map.control_init(:large_map => true, :map_type => true)
+    @map.center_zoom_init(coordinates, 14)
+    #@map.overlay_init(GMarker.new(coordinates,:title => "Navy Pier", :info_window => "Navy Pier"))
+    @map.overlay_init(GMarker.new(coordinates))
   end
 end

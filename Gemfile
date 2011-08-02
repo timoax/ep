@@ -6,3 +6,4 @@ gem "rake", "0.8.7"
 gem "mysql", "2.8.1"
 
 gem 'nokogiri', '1.4.6'
+gem 'ym4r', '0.6.1'
