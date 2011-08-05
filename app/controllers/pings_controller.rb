@@ -1,8 +1,7 @@
 class PingsController < ApplicationController
 
-  layout "frontend"
-
-  def new
+  # usage => http://localhost:3000/pings/register?lat=41.8781136&long=-87.6297982&device=1341308448409&tstamp=1312249818
+  def register
     # SanFran => http://maps.googleapis.com/maps/api/geocode/json?address=San+Francisco,+CA&sensor=true
     #lat =37.7749295
     #long = -122.4194155
