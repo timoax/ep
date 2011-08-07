@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802033325) do
+ActiveRecord::Schema.define(:version => 20110807010756) do
 
   create_table "pings", :force => true do |t|
     t.decimal  "lat",        :precision => 15, :scale => 10
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(:version => 20110802033325) do
     t.datetime "updated_at"
     t.string   "device"
     t.string   "tstamp"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "hashed_password"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
